@@ -1,35 +1,32 @@
 from fastapi import APIRouter, HTTPException, status, Response
 from src.models.schemas import TransacaoIn
-from datetime import datetime, timezone
 
-router = APIRouter()    
+# Aqui importarei o nosso use case
+from src.use_cases.criar_transacao import CriarTransacaoUseCase 
 
-@router.post("/transacao", status_code=status.HTTP_201_CREATED)
+router = APIRouter()
 
+@router.post("/transacoes", status_code=status.HTTP_201_CREATED)
 def criar_transacao(transacao: TransacaoIn, response: Response):
+    #1. Instancia o use case
+
+    use_case = CriarTransacaoUseCase()
+
+    try:
+
+        # 2. Executa o use case
+        resultado = use_case.execute(transacao) 
+
+        # 3. Traduz a resposta do Use Case para a resposta HTTP 
+        if resultado is False:
+            # Se o Use Case disse "False" (Ignorar), devolvemos 204
+            response.status_code = status.HTTP_204_NO_CONTENT
+            return response
+        
+        #Se deu tudo certo, o 201 é automático
+        return 
     
-    # 1. Pega a data e hora atual em UTC para comparar com a transação
-    agora = datetime.now(timezone.utc)
-
-    # 2. Validação: Transação no futuro ->  422
-    if transacao.data_hora > agora:
-        raise HTTPException(
-            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
-            detail="A transação não pode ser no futuro."
-        )   
+    except ValueError as e:
+        # 4. Se o Use Case gritou um erro de valor, transformamos em 422
+        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail=str(e))
     
-    # 3. Validação: Transação com mais de 60 segundos -> 204
-    diferenca = (agora - transacao.data_hora).total_seconds()
-
-    if diferenca > 60:
-        # Mudamos o status para 204 (No Content)
-        response.status_code = status.HTTP_204_NO_CONTENT
-
-        # Retornamos o objeto response (sem corpo, pois é 204)
-
-        return response
-    
-    # Por enquanto, vamos apenas imprimir no console para provar que chegou
-    print(f"Processando transação valida! Valor: {transacao.valor}")
-
-    return {}
