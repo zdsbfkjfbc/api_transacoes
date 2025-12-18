@@ -1,17 +1,25 @@
-from fastapi import APIRouter, status
-from src.models.schemas import EstatisticaOut
+from fastapi import APIRouter, Depends
+from sqlalchemy.orm import Session  
+
+
+# Imports do Projeto
+from src.infra.database import get_db
+from src.infra.postgres_repository import TransacaoPostgresRepository
 from src.use_cases.calcular_estatisticas import CalcularEstatisticasUseCase
 
 router = APIRouter()    
 
-# Note: response_model=EstatisticaOut
-# Isso diz ao Swagger: "Essa rota vai devolver aquele JSON com count, sum, etc"
-@router.get("/estatisticas", response_model=EstatisticaOut, status_code=status.HTTP_200_OK)
+@router.get("/estatisticas", status_code=200)
 
-def obter_estatisticas():
+def obter_estatisticas(db: Session = Depends(get_db)):
 
-    use_case = CalcularEstatisticasUseCase()
-    resultado = use_case.execute()
+    # 1. Instância o Repositório (Conectando ao Postgres)
+    repositorio = TransacaoPostgresRepository(db)
 
+    # 2. Instância o Use Case (Injetando o Repositório)
+    use_case = CalcularEstatisticasUseCase(repositorio)
+
+    # 3. Executa a logica e retorna o dicionário pronto
+    resultado = use_case.executar()
+    
     return resultado
-

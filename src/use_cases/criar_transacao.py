@@ -1,33 +1,34 @@
 from datetime import datetime, timezone
-from src.models.schemas import TransacaoIn
-
-from src.infra.transacoes_repository import TransacoesRepository
+from src.schemas import TransacaoIn
 
 class CriarTransacaoUseCase:
     
-    def execute(self, transacao: TransacaoIn) -> bool:
+    # 1. O CONSTRUTOR MÁGICO
+    # Aqui dizemos: "Eu não sei criar repositório, alguém me entregue um pronto!"
+    def __init__(self, repositorio):
+        self.repositorio = repositorio
 
+    # 2. Mudamos o nome de 'execute' para 'executar' (para bater com o controller)
+    def executar(self, transacao: TransacaoIn) -> bool:
         """
         Executa as regras de negócio para criar uma nova transação.
-        Retorna: True se criou, False se deve ignorar (204), ou levanta erro.
         """
-
-        # 1. A lógica do tempo(agora isolada aqui)
+        
+        # --- LÓGICA DE TEMPO (Mantivemos a sua, que está ótima) ---
         agora = datetime.now(timezone.utc)
 
-        # Regra 1: Futuro (Erro)
-
         if transacao.data_hora > agora:
-            # Note: Usamos o ValueError (Erro generico no Python), Não HTTPExpeption
             raise ValueError("Transação no futuro não é permitida.")
         
         diferenca = (agora - transacao.data_hora).total_seconds()
 
         if diferenca > 60:
-            return False  # Ignorar transações com mais de 60 segundos
+            return False  # Ignorar transações antigas (204)
         
-        #Regra 3: Sucesso
-        repo = TransacoesRepository()
-        repo.salvar(transacao)
+        # --- A MUDANÇA ESTÁ AQUI EMBAIXO ---
+        
+        # Em vez de criar 'repo = TransacoesRepository()'...
+        # Usamos o repositório que recebemos lá no __init__ (seja ele qual for)
+        self.repositorio.salvar(transacao)
 
-        return True # Indica que foi criada
+        return True
