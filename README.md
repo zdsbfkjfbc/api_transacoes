@@ -1,4 +1,5 @@
-👣 Passo 1: Crie o ArquivoNa raiz do seu projeto (onde está o docker-compose.yml), crie um arquivo chamado README.md.👣 Passo 2: O Conteúdo (Copie e Cole)Este template abaixo não é um README básico. Ele contém uma seção de "Decisões Arquiteturais", que é o que diferencia um Pleno de um Júnior.Copie tudo abaixo e cole no arquivo:Markdown# 🏦 API de Transações Financeiras (High Performance)
+```markdown
+# 🏦 API de Transações Financeiras (High Performance)
 
 ## 📋 Sobre o Projeto
 API REST desenvolvida para processar transações financeiras e calcular estatísticas em tempo real.
@@ -42,10 +43,45 @@ Foi implementada uma suíte de testes automatizados que garante que alterações
 1. Clone o repositório:
    ```bash
    git clone [https://github.com/SEU-USUARIO/api-transacoes.git](https://github.com/SEU-USUARIO/api-transacoes.git)
-Suba o ambiente:Bashdocker compose up -d --build
-Acesse a Documentação Interativa (Swagger):Abra no navegador: http://localhost:8000/docs🧪 Rodando os TestesPara executar os testes unitários e de integração:Bash# Instale as dependências de dev (se estiver rodando fora do Docker)
+
+```
+
+2. Suba o ambiente:
+```bash
+docker compose up -d --build
+
+```
+
+
+3. Acesse a Documentação Interativa (Swagger):
+* Abra no navegador: `http://localhost:8000/docs`
+
+
+
+---
+
+## 🧪 Rodando os Testes
+
+Para executar os testes unitários e de integração:
+
+```bash
+# Instale as dependências de dev (se estiver rodando fora do Docker)
 pip install -r requirements.txt
 
 # Execute
 python -m pytest -v
-📝 Endpoints PrincipaisMétodoRotaDescriçãoPOST/transacaoRecebe JSON com valor e data_hora. Retorna 201 se criado ou 422 se for mais antigo que 60s.GET/estatisticaRetorna JSON com sum, avg, min, max, count dos últimos 60 segundos.
+
+```
+
+---
+
+## 📝 Endpoints Principais
+
+| Método | Rota | Descrição |
+| --- | --- | --- |
+| `POST` | `/transacao` | Recebe JSON com `valor` e `data_hora`. Retorna 201 se criado ou 422 se for mais antigo que 60s. |
+| `GET` | `/estatistica` | Retorna JSON com `sum`, `avg`, `min`, `max`, `count` dos últimos 60 segundos. |
+
+---
+
+
