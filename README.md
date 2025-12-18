@@ -1,3 +1,5 @@
+# 🏦 API de Transações Financeiras (High Performance)
+
 ## 📋 Sobre o Projeto
 API REST desenvolvida para processar transações financeiras e calcular estatísticas em tempo real.
 O projeto foi construído com foco em **Clean Architecture**, **Testes Automatizados** e **Performance**, garantindo que a complexidade de tempo para leitura de estatísticas seja constante O(1) na aplicação, delegando agregação para o Banco de Dados.
