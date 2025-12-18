@@ -1,5 +1,3 @@
-👣 Passo 1: Crie o ArquivoNa raiz do seu projeto (onde está o docker-compose.yml), crie um arquivo chamado README.md.👣 Passo 2: O Conteúdo (Copie e Cole)Este template abaixo não é um README básico. Ele contém uma seção de "Decisões Arquiteturais", que é o que diferencia um Pleno de um Júnior.Copie tudo abaixo e cole no arquivo:Markdown# 🏦 API de Transações Financeiras (High Performance)
-
 ## 📋 Sobre o Projeto
 API REST desenvolvida para processar transações financeiras e calcular estatísticas em tempo real.
 O projeto foi construído com foco em **Clean Architecture**, **Testes Automatizados** e **Performance**, garantindo que a complexidade de tempo para leitura de estatísticas seja constante O(1) na aplicação, delegando agregação para o Banco de Dados.
