@@ -83,4 +83,12 @@ python -m pytest -v
 
 ---
 
+🔮 Roadmap de Melhorias (Escalabilidade)
+Para suportar 10 milhões de requisições/minuto (Cenário Big Data):
+
+[ ] Implementar Redis para cache de estatísticas em memória RAM.
+
+[ ] Adicionar Autenticação JWT (OAuth2).
+
+[ ] Implementar Load Balancer (Nginx) na frente da API.
 
