@@ -1,3 +1,4 @@
+```markdown
 # 🏦 API de Transações Financeiras (High Performance)
 
 ## 📋 Sobre o Projeto
@@ -42,10 +43,45 @@ Foi implementada uma suíte de testes automatizados que garante que alterações
 1. Clone o repositório:
    ```bash
    git clone [https://github.com/SEU-USUARIO/api-transacoes.git](https://github.com/SEU-USUARIO/api-transacoes.git)
-Suba o ambiente:Bashdocker compose up -d --build
-Acesse a Documentação Interativa (Swagger):Abra no navegador: http://localhost:8000/docs🧪 Rodando os TestesPara executar os testes unitários e de integração:Bash# Instale as dependências de dev (se estiver rodando fora do Docker)
+
+```
+
+2. Suba o ambiente:
+```bash
+docker compose up -d --build
+
+```
+
+
+3. Acesse a Documentação Interativa (Swagger):
+* Abra no navegador: `http://localhost:8000/docs`
+
+
+
+---
+
+## 🧪 Rodando os Testes
+
+Para executar os testes unitários e de integração:
+
+```bash
+# Instale as dependências de dev (se estiver rodando fora do Docker)
 pip install -r requirements.txt
 
 # Execute
 python -m pytest -v
-📝 Endpoints PrincipaisMétodoRotaDescriçãoPOST/transacaoRecebe JSON com valor e data_hora. Retorna 201 se criado ou 422 se for mais antigo que 60s.GET/estatisticaRetorna JSON com sum, avg, min, max, count dos últimos 60 segundos.
+
+```
+
+---
+
+## 📝 Endpoints Principais
+
+| Método | Rota | Descrição |
+| --- | --- | --- |
+| `POST` | `/transacao` | Recebe JSON com `valor` e `data_hora`. Retorna 201 se criado ou 422 se for mais antigo que 60s. |
+| `GET` | `/estatistica` | Retorna JSON com `sum`, `avg`, `min`, `max`, `count` dos últimos 60 segundos. |
+
+---
+
+
