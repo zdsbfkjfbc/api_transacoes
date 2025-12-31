@@ -7,12 +7,16 @@ from src.infra.database import get_db, Base, engine
 from src.schemas import TransacaoIn
 from src.infra.postgres_repository import TransacaoPostgresRepository
 from src.use_cases.criar_transacao import CriarTransacaoUseCase
+from src.routers import transacoes_routers, auth_routers
 
 # Cria as tabelas no banco (se não existirem)
 Base.metadata.create_all(bind=engine)
 
 # Instancia a aplicação
 app = FastAPI()
+
+app.include_router(transacoes_routers.router)
+app.include_router(auth_routers.router)
 
 # --- ROTA POST (CRIAR) ---
 @app.post("/transacao", status_code=status.HTTP_201_CREATED)

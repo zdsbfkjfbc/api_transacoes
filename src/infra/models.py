@@ -17,3 +17,13 @@ class TransacaoDB(Base):
 
     # Exemplo: Se tivéssemos cartão, seria:
     # cartao = Column(String, nullable=False)
+
+class UsuarioDB(Base):
+    __tablename__ = "usuarios"
+
+    id = Column(Integer, primary_key=True, index=True)
+    nome = Column(String, nullable=False)
+    # O CPF será o "login". unique=True impede que dois usuários tenham o mesmo CPF 
+    cpf = Column(String, unique=True, index=True, nullable=False)
+    # Atenção: Nunca chamamos de "senha". é "senha_hash" para lembrar que é a versão criptografada
+    senha_hash = Column(String, nullable=False)

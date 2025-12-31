@@ -1,11 +1,7 @@
-version: '3.8'
-
-# ESTE BLOCO É O PAI
 services:
-  # O SERVIÇO 'db' DEVE ESTAR IDENTADO AQUI
   db:
     image: postgres:15-alpine
-    container_name: itau-db
+    container_name: banco-prod
     environment:
       - POSTGRES_USER=admin
       - POSTGRES_PASSWORD=admin
@@ -18,7 +14,7 @@ services:
   # O SERVIÇO 'api' DEVE ESTAR NO MESMO NÍVEL DE 'db'
   api:
     build: .
-    container_name: itau-api
+    container_name: api-v1
     command: uvicorn src.main:app --host 0.0.0.0 --port 8000 --reload
     ports:
       - "8000:8000"

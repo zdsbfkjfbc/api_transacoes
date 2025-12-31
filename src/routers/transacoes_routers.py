@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from src.infra.database import get_db
 from src.schemas import TransacaoIn
-from src.repositories.transacoes_repository import TransacoesRepository
+from src.infra.transacoes_repository import TransacoesRepository
 from src.use_cases.criar_transacao import CriarTransacaoUseCase
 
 # Cria o agrupador de rotas 

@@ -6,7 +6,7 @@ from sqlalchemy.orm import sessionmaker
 # Diz onde o banco está.
 # "postgresql://usuario:senha@endereco:porta/nome_do_banco"
 # Nota: Usamos 'localhost' aqui para testar rodando o Python fora do Docker por enquanto.
-SQLALCHEMY_DATABASE_URL = "postgresql://admin:admin@127.0.0.1:5432/transacoes_db"
+SQLALCHEMY_DATABASE_URL = "postgresql://admin:admin@db:5432/transacoes_db"
 
 # 2. Criando o Motor de Conexão
 # É quem gerencia a comunicação real com o banco de dados.
