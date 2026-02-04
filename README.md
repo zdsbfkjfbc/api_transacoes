@@ -1,4 +1,4 @@
-```markdown
+
 # 🏦 API de Transações Financeiras (High Performance)
 
 ## 📋 Sobre o Projeto
